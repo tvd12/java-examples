@@ -5,8 +5,8 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 
-import com.tvd12.ezyfoxserver.util.EzyEquals;
-import com.tvd12.ezyfoxserver.util.EzyHashCodes;
+import com.tvd12.ezyfox.util.EzyEquals;
+import com.tvd12.ezyfox.util.EzyHashCodes;
 
 import lombok.Getter;
 
