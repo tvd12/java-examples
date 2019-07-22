@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.tvd12</groupId>
-		<artifactId>ezyfox-server</artifactId>
-		<version>0.0.20180526</version>
+		<artifactId>ezyfox</artifactId>
+		<version>0.0.1</version>
 	</parent>
 	<artifactId>java-examples</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>java-examples</name>
 	<description>java examples</description>
 
