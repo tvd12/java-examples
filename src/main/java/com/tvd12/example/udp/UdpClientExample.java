@@ -1,4 +1,4 @@
-package com.tvd12.example.common.udp;
+package com.tvd12.example.udp;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;

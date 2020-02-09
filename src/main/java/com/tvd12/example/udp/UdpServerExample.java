@@ -1,4 +1,4 @@
-package com.tvd12.example.common.udp;
+package com.tvd12.example.udp;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -41,7 +41,7 @@ public class UdpServerExample {
 
 		public void init() {
 			if (isActive) {
-				throw new IllegalArgumentException("Object is already initialized. Destroy it first!");
+				throw new IllegalArgumentException("has already destroyed!");
 			}
 			isActive = true;
 			readerThread.start();
@@ -54,7 +54,7 @@ public class UdpServerExample {
 
 				udpSelector.close();
 			} catch (Exception e) {
-				logger.warn("Error when shutting down UDP Selector", e);
+				logger.warn("destroy error", e);
 			}
 		}
 
@@ -98,22 +98,22 @@ public class UdpServerExample {
 
 						        String.format(
 
-						                "Problem reading UDP Packet, from: %s, Error: %s",
+						                "read data error",
 						                new Object[] { chan.toString(), e.toString() }));
 					}
 
 				}
 
 			} catch (ClosedSelectorException e) {
-				logger.debug("Selector is closed!");
+				logger.debug("ClosedSelectorException");
 
 			} catch (CancelledKeyException localCancelledKeyException) {
 			} catch (IOException ioe) {
 
-				logger.warn("Datagram selection IOError", ioe);
+				logger.warn("IOException", ioe);
 
 			} catch (Exception err) {
-				logger.warn("Generic reading/selection error", err);
+				logger.warn("Exception", err);
 			}
 		}
 
@@ -137,7 +137,7 @@ public class UdpServerExample {
 					System.out.println("received: " + new String(binaryData));
 				}
 			} else {
-				logger.info("Could not read any data from DatagramChannel: " + chan);
+				logger.info("read error", chan);
 			}
 		}
 
