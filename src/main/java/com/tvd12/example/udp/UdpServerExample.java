@@ -18,7 +18,7 @@ public class UdpServerExample {
 	public static void main(String[] args) throws Exception {
 		DatagramChannel datagramChannel = DatagramChannel.open();
 	    datagramChannel.configureBlocking(false);
-	    datagramChannel.socket().bind(new InetSocketAddress("0.0.0.0", 9999));
+	    datagramChannel.socket().bind(new InetSocketAddress("0.0.0.0", 2612));
 	    datagramChannel.socket().setReuseAddress(true);
 		Selector udpSelector = Selector.open();
 		datagramChannel.register(udpSelector, SelectionKey.OP_READ);
@@ -78,8 +78,8 @@ public class UdpServerExample {
 
 			try {
 				udpSelector.select();
+				System.out.println("hello");
 				Iterator<SelectionKey> selectedKeys = udpSelector.selectedKeys().iterator();
-
 				while (selectedKeys.hasNext()) {
 					try {
 						key = (SelectionKey) selectedKeys.next();

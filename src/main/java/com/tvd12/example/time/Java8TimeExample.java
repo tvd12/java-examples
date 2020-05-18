@@ -36,6 +36,8 @@ public class Java8TimeExample {
 		millisToDateTime();
 		dateToDateTime();
 		dateTimeToInt();
+		
+		System.out.println("dayOfWeek: " + LocalDate.now().getDayOfWeek());
 	}
 	
 	public static void firstExample() {

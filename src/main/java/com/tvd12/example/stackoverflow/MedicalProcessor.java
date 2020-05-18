@@ -21,7 +21,7 @@ public class MedicalProcessor {
 	        int counter=0;
 
 	        while(medicalDeviceIsGivingData && counter < 1000){
-	            byte[] data = readData(settings); //using settings
+	            readData(settings); //using settings
 
 	            //a lot of of other functions that use settings.
 
