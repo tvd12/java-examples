@@ -1,2 +1,3 @@
 include ':java-core'
+include ':spring-boot'
 rootProject.name = 'java-examples'
