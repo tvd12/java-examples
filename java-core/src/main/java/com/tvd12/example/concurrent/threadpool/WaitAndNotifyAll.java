@@ -5,11 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
-public class MyThreadPool2 {
+public class WaitAndNotifyAll {
 
 	private List synchedList;
 
-	public MyThreadPool2() {
+	public WaitAndNotifyAll() {
 	      // create a new synchronized list to be used
 	      synchedList = Collections.synchronizedList(new LinkedList());
 	}
@@ -46,7 +46,7 @@ public class MyThreadPool2 {
 	}
 
 	public static void main(String[] args) {
-		final MyThreadPool2 demo = new MyThreadPool2();
+		final WaitAndNotifyAll demo = new WaitAndNotifyAll();
 
 		Runnable runA = new Runnable() {
 

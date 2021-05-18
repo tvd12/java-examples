@@ -6,14 +6,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class MyThreadPool3 {
+public class MyThreadPoolThreadQueue {
 
 	private Object lock = new Object();
 	private Thread thread;
 	private Queue<Thread> threads = new LinkedList<>();
 	private List<String> queue = Collections.synchronizedList(new ArrayList<>());
 	
-	public MyThreadPool3() {
+	public MyThreadPoolThreadQueue() {
 		thread = new Thread(this::runTasks);
 		thread.setName("booss");
 		for(int i = 0 ; i < 3 ; i++) {
@@ -64,7 +64,7 @@ public class MyThreadPool3 {
 	}
 	
 	public static void main(String[] args) {
-		MyThreadPool3 pool = new MyThreadPool3();
+		MyThreadPoolThreadQueue pool = new MyThreadPoolThreadQueue();
 		for(int i = 0 ; i < 10000 ; i ++)
 			pool.execute("hello - " + i);
 	}

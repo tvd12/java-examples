@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MyThreadPool {
+public class MyThreadPoolWithThreadArray {
 
 	private Thread[] threads = new Thread[3];
 	private List<String> queue = Collections.synchronizedList(new ArrayList<>());
 	
-	public MyThreadPool() {
+	public MyThreadPoolWithThreadArray() {
 		for(int i = 0 ; i < threads.length ; i++) {
 			threads[i] = new Thread(this::runTasks);
 			threads[i].setName("mythread-" + i);
@@ -50,7 +50,7 @@ public class MyThreadPool {
 	}
 	
 	public static void main(String[] args) {
-		MyThreadPool pool = new MyThreadPool();
+		MyThreadPoolWithThreadArray pool = new MyThreadPoolWithThreadArray();
 		pool.start();
 		for(int i = 0 ; i < 1000 ; i++)
 			pool.execute("hello-" + i);
