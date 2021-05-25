@@ -1,6 +1,7 @@
 include ':common'
 include ':clean-code'
 include ':java-core'
+include ':spring-core'
 include ':spring-boot'
 include ':spring-boot-redis'
 rootProject.name = 'java-examples'
