@@ -21,6 +21,8 @@ public class ByteExample {
 		System.out.println(value & 1 << 5);
 		System.out.println(value & 1 << 6);
 		System.out.println(value & 1 << 7);
+
+		System.out.println(2275053848343633295L >> 32);
 	}
 	
 }

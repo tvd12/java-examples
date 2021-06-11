@@ -1,0 +1,4 @@
+dependencies {
+    implementation(project(":common"))
+    testImplementation("com.tvd12:test-util:1.1.0")
+}

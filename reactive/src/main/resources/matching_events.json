@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Friend",
+    "location": "The Earth",
+    "time": "2021-01-01 09:00:00"
+  },
+  {
+    "id": 2,
+    "name": "Crush",
+    "location": "The Moon",
+    "time": "2021-01-02 10:00:00"
+  },
+  {
+    "id": 3,
+    "name": "Love",
+    "location": "The Mars",
+    "time": "2021-01-03 11:00:00"
+  }
+]

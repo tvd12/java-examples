@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "nickname": "Monkey1",
+    "fullName": "Monkey No.1"
+  },
+  {
+    "id": 2,
+    "nickname": "Monkey2",
+    "fullName": "Monkey No.2"
+  },
+  {
+    "id": 3,
+    "nickname": "Monkey3",
+    "fullName": "Monkey No.3"
+  }
+]
