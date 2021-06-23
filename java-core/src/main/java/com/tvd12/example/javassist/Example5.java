@@ -32,7 +32,7 @@ public class Example5 {
 				.append("\treturn point;")
 				.append("\n}");
 		cc.addMethod(CtNewMethod.make(methodBuilder.toString(), cc));
-		Class<PointDeserializer> clazz = cc.toClass();
+		Class<PointDeserializer> clazz = (Class<PointDeserializer>) cc.toClass();
 		PointDeserializer de = clazz.newInstance();
 		Map<String, Integer> map = new HashMap<>();
 		map.put("x", 100);
