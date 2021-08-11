@@ -1,6 +1,7 @@
 include ':common'
 include ':clean-code'
 include ':java-core'
+include ':java-mail'
 include ':reactive'
 include ':spring-core'
 include ':spring-boot'
