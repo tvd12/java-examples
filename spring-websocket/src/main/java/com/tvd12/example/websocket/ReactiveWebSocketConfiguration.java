@@ -19,10 +19,14 @@ public class ReactiveWebSocketConfiguration {
     @Qualifier("ReactiveWebSocketHandler")
     private WebSocketHandler webSocketHandler;
 
+    @Autowired
+    private ChatSocketHandler chatSocketHandler;
+
     @Bean
     public HandlerMapping webSocketHandlerMapping() {
         Map<String, WebSocketHandler> map = new HashMap<>();
         map.put("/event-emitter", webSocketHandler);
+        map.put("/chat", chatSocketHandler);
 
         SimpleUrlHandlerMapping handlerMapping = new SimpleUrlHandlerMapping();
         handlerMapping.setOrder(1);
