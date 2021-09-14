@@ -9,9 +9,14 @@ public class NonBlockingEventLoop {
     private final long sleepTime;
     private Runnable onUpdateCallback;
     private final Queue<Runnable> eventQueue;
+    private static final long DEFAULT_SLEEP_TIME = 3;
 
     public NonBlockingEventLoop() {
-        this.sleepTime = 3;
+        this(DEFAULT_SLEEP_TIME);
+    }
+
+    public NonBlockingEventLoop(long sleepTime) {
+        this.sleepTime = sleepTime;
         this.eventQueue = new LinkedList<>();
     }
 
