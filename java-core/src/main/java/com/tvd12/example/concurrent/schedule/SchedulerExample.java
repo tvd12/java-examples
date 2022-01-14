@@ -12,6 +12,10 @@ public class SchedulerExample {
         scheduledExecutorService.schedule(() -> {
             System.out.println("show notifcation");
         }, 5, TimeUnit.SECONDS);
+
+        scheduledExecutorService.scheduleAtFixedRate(() -> {
+            System.out.println("show notifcation");
+        }, 10, 20, TimeUnit.SECONDS);
     }
 
 }
