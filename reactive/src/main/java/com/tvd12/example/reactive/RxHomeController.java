@@ -21,7 +21,6 @@ public class RxHomeController {
     private final EventService eventService;
     private final MemberService memberService;
 
-    @SuppressWarnings("unchecked")
     public HomeData getHomeData() {
         return Reactive.single()
             .register("newsList", this::getHotNewsList)
@@ -29,9 +28,9 @@ public class RxHomeController {
             .register("members", this::getNewPublicMembers)
             .blockingGet(it ->
                 HomeData.builder()
-                    .newsList((List<News>) it.get("newsList"))
-                    .eventList((List<Event>) it.get("events"))
-                    .memberList((List<Member>) it.get("members"))
+                    .newsList(it.get("newsList"))
+                    .eventList(it.get("events"))
+                    .memberList(it.get("members"))
                     .build()
             );
     }

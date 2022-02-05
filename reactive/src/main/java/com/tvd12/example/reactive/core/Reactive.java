@@ -2,10 +2,7 @@ package com.tvd12.example.reactive.core;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -16,8 +13,7 @@ public final class Reactive {
     private static final ExecutorService EXECUTOR_SERVICE =
         Executors.newFixedThreadPool(32);
 
-    private Reactive() {
-    }
+    private Reactive() {}
 
     public static Single single() {
         return new Single();
@@ -28,19 +24,21 @@ public final class Reactive {
     }
 
     public static class Single {
-        private final Map<String, RxSupplier> suppliers = new HashMap<>();
+        private final Map<Object, RxSupplier> suppliers = new HashMap<>();
 
-        public Single register(String name, RxSupplier supplier) {
+        public Single register(Object name, RxSupplier supplier) {
             suppliers.put(name, supplier);
             return this;
         }
 
-        public <T> T blockingGet(Function<Map<String, Object>, T> mapper) {
-            final Map<String, Object> result = new ConcurrentHashMap<>(suppliers.size());
-            final List<Exception> exceptions = new ArrayList<>();
+        public <T> T blockingGet(Function<RxMap, T> mapper) {
+            final RxMap result = new RxMap();
+            final List<Exception> exceptions = Collections.synchronizedList(
+                new ArrayList<>()
+            );
             final CountDownLatch countDown = new CountDownLatch(suppliers.size());
-            for (Map.Entry<String, RxSupplier> entry : suppliers.entrySet()) {
-                final String name = entry.getKey();
+            for (Map.Entry<Object, RxSupplier> entry : suppliers.entrySet()) {
+                final Object name = entry.getKey();
                 EXECUTOR_SERVICE.execute(() -> {
                     try {
                         final Object value = entry.getValue().get();
@@ -67,8 +65,21 @@ public final class Reactive {
         }
     }
 
-    public static interface RxSupplier {
+    public interface RxSupplier {
         Object get() throws Exception;
+    }
+
+    public static class RxMap {
+        private final Map<Object, Object> map = new ConcurrentHashMap<>();
+
+        public void put(Object name, Object value) {
+            this.map.put(name, value);
+        }
+
+        @SuppressWarnings("unchecked")
+        public <T> T get(Object name) {
+            return (T)map.get(name);
+        }
     }
 
     @Getter
