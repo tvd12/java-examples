@@ -2,7 +2,6 @@ package com.example.mvc.controller;
 
 import com.example.mvc.converter.ModelToResponseConverter;
 import com.example.mvc.converter.RequestToModelConverter;
-import com.example.mvc.manager.BeanManager;
 import com.example.mvc.model.AccessTokenModel;
 import com.example.mvc.model.AuthenticationModel;
 import com.example.mvc.request.LoginRequest;
