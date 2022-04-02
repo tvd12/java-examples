@@ -157,7 +157,8 @@ public class Rect {
 	@Override
 	public int hashCode() {
 		return new EzyHashCodes()
-				.append(origin, size)
+				.append(origin)
+				.append(size)
 				.toHashCode();
 	}
 

@@ -44,7 +44,8 @@ public class Vec2 {
 	@Override
 	public int hashCode() {
 		return new EzyHashCodes()
-				.append(x, y)
+				.append(x)
+				.append(y)
 				.toHashCode();
 	}
 }
