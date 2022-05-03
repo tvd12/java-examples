@@ -20,7 +20,7 @@ public class AuthorController {
 
     @PostMapping("/add")
     public Author addAuthor(@RequestBody AddAuthorRequest request) {
-    	Author author = new Author(
+        Author author = new Author(
             idGentor.incrementAndGet("author"),
             request.getAuthorName()
         );

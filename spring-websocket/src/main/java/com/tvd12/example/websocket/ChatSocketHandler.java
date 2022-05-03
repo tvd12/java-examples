@@ -19,8 +19,8 @@ public class ChatSocketHandler implements WebSocketHandler {
 
     Sinks.Many<Event> sink = Sinks.many().multicast().onBackpressureBuffer(Queues.SMALL_BUFFER_SIZE, false);
     Flux<Event> outputMessages = sink.asFlux().cache(25);
-    ObjectMapper mapper;
     Flux<String> output = Flux.from(outputMessages).map(this::toJson);
+    ObjectMapper mapper;
 
 
     public ChatSocketHandler(ObjectMapper objectMapper) {

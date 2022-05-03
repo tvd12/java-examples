@@ -9,49 +9,50 @@ import com.tvd12.example.jndi.MyObject;
 
 public class TestMyContext {
 
-	static MyContext testRoot;
-	static {
-		try {
-			testRoot = new MyContext(null);
+    static MyContext testRoot;
 
-			Context a = testRoot.createSubcontext("a");
-			Context b = a.createSubcontext("b");
-			b.createSubcontext("c");
+    static {
+        try {
+            testRoot = new MyContext(null);
 
-			testRoot.createSubcontext("x");
-			testRoot.createSubcontext("y");
-		} catch (NamingException e) {
-		}
-	}
+            Context a = testRoot.createSubcontext("a");
+            Context b = a.createSubcontext("b");
+            b.createSubcontext("c");
 
-	@SuppressWarnings("rawtypes")
-	public static Context getStaticNamespace(Hashtable env) {
-		return testRoot;
-	}
+            testRoot.createSubcontext("x");
+            testRoot.createSubcontext("y");
+        } catch (NamingException e) {
+        }
+    }
 
-	public static void main(String[] args) {
-		try {
-			Context ctx = new MyContext(null);
+    @SuppressWarnings("rawtypes")
+    public static Context getStaticNamespace(Hashtable env) {
+        return testRoot;
+    }
 
-			Context a = ctx.createSubcontext("a");
-			Context b = a.createSubcontext("b");
-			Context c = b.createSubcontext("c");
+    public static void main(String[] args) {
+        try {
+            Context ctx = new MyContext(null);
 
-			System.out.println(c.getNameInNamespace());
+            Context a = ctx.createSubcontext("a");
+            Context b = a.createSubcontext("b");
+            Context c = b.createSubcontext("c");
 
-			System.out.println(ctx.lookup(""));
-			System.out.println(ctx.lookup("a"));
-			System.out.println(ctx.lookup("b.a"));
-			System.out.println(a.lookup("c.b"));
-			
-			MyObject myObject = new MyObject();
-			ctx.bind("m", myObject);
-			System.out.println(ctx.lookup("m"));
-			c.bind("m1", myObject);
-			System.out.println(ctx.lookup("m1.c.b.a"));
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
-	
+            System.out.println(c.getNameInNamespace());
+
+            System.out.println(ctx.lookup(""));
+            System.out.println(ctx.lookup("a"));
+            System.out.println(ctx.lookup("b.a"));
+            System.out.println(a.lookup("c.b"));
+
+            MyObject myObject = new MyObject();
+            ctx.bind("m", myObject);
+            System.out.println(ctx.lookup("m"));
+            c.bind("m1", myObject);
+            System.out.println(ctx.lookup("m1.c.b.a"));
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

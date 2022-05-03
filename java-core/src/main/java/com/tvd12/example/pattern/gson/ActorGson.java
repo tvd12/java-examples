@@ -16,10 +16,10 @@ public class ActorGson {
     private String imdbId;
     private Date dateOfBirth;
     private List<String> filmography;
-    
+
     @Override
     public String toString() {
         return "ActorGson [imdbId=" + imdbId + ", dateOfBirth=" + dateOfBirth +
-          ",filmography=" + filmography + "]";
+            ",filmography=" + filmography + "]";
     }
 }

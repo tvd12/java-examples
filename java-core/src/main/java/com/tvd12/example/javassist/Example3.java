@@ -14,20 +14,20 @@ import javassist.bytecode.FieldInfo;
 
 public class Example3 {
 
-	public static void main(String[] args) throws NotFoundException, SecurityException, CannotCompileException, RuntimeException {
-		ClassFile cf = ClassPool.getDefault()
-				  .get("com.tvd12.example.javassist.Point").getClassFile();
-				 
-		FieldInfo f = new FieldInfo(cf.getConstPool(), "id", "I");
-		f.setAccessFlags(AccessFlag.PUBLIC);
-		cf.addField(f);
-		ClassPool classPool = ClassPool.getDefault();
-		Field[] fields = classPool.makeClass(cf).toClass().getFields();
-		List<String> fieldsList = Stream.of(fields)
-		  .map(Field::getName)
-		  .collect(Collectors.toList());
-		  
-		assert fieldsList.contains("id");
-	}
-	
+    public static void main(String[] args) throws NotFoundException, SecurityException, CannotCompileException, RuntimeException {
+        ClassFile cf = ClassPool.getDefault()
+            .get("com.tvd12.example.javassist.Point").getClassFile();
+
+        FieldInfo f = new FieldInfo(cf.getConstPool(), "id", "I");
+        f.setAccessFlags(AccessFlag.PUBLIC);
+        cf.addField(f);
+        ClassPool classPool = ClassPool.getDefault();
+        Field[] fields = classPool.makeClass(cf).toClass().getFields();
+        List<String> fieldsList = Stream.of(fields)
+            .map(Field::getName)
+            .collect(Collectors.toList());
+
+        assert fieldsList.contains("id");
+    }
+
 }

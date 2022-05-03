@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface PointDeserializer extends Serializable {
 
-	Point deserialize(Map<String, Integer> map);
-	
+    Point deserialize(Map<String, Integer> map);
+
 }

@@ -7,14 +7,16 @@ public class ListPerformanceTest {
         int count = 10_000_000;
         List<Object> arrayList = new ArrayList<>();
         long startArrayListAdd = System.currentTimeMillis();
-        for(int i = 0 ; i < count ; ++i)
+        for (int i = 0; i < count; ++i) {
             arrayList.add(new Object());
+        }
         long endArrayListAdd = System.currentTimeMillis();
 
         List<Object> linkedList = new LinkedList<>();
         long startLinkedListAdd = System.currentTimeMillis();
-        for(int i = 0 ; i < count ; ++i)
+        for (int i = 0; i < count; ++i) {
             linkedList.add(new Object());
+        }
         long endLinkedListAdd = System.currentTimeMillis();
         System.out.println("arrayList add time: " + (endArrayListAdd - startArrayListAdd));
         System.out.println("linkedList add time: " + (endLinkedListAdd - startLinkedListAdd));
@@ -34,8 +36,9 @@ public class ListPerformanceTest {
 
         Set<Object> synchronizedSet = Collections.synchronizedSet(new HashSet<>());
         long startSynchronizedSetAdd = System.currentTimeMillis();
-        for(int i = 0 ; i < count ; ++i)
+        for (int i = 0; i < count; ++i) {
             synchronizedSet.add(new Object());
+        }
         long endSynchronizedSetAdd = System.currentTimeMillis();
         System.out.println("synchronizedSet add time: " + (endSynchronizedSetAdd - startSynchronizedSetAdd));
 
@@ -50,8 +53,9 @@ public class ListPerformanceTest {
         long endArrayListCopy = System.currentTimeMillis();
 
         List<Object> buffer = new ArrayList<>();
-        for(int i = 0 ; i < count ; ++i)
+        for (int i = 0; i < count; ++i) {
             buffer.add(new Object());
+        }
         buffer.clear();
         long startBufferCopy = System.currentTimeMillis();
         buffer.addAll(synchronizedSet);

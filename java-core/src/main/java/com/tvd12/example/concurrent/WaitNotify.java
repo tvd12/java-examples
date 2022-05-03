@@ -18,13 +18,13 @@ public class WaitNotify {
             }
         });
         Thread consumer = new Thread(() -> {
-           while (true) {
-               try {
-                   System.out.println(queue.take());
-               } catch (InterruptedException e) {
-                   e.printStackTrace();
-               }
-           }
+            while (true) {
+                try {
+                    System.out.println(queue.take());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         });
         producer.start();
         consumer.start();

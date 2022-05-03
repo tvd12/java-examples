@@ -4,6 +4,9 @@ import java.net.URI;
 
 public class JdbcUriGetDatabaseName {
 
+    private static final String PREFIX_CREATE_TABLE = "CREATE TABLE";
+    private static final String PREFIX_CREATE_TABLE_IF_NO_EXISTS = "CREATE TABLE IF NOT EXISTS";
+
     public static void main(String[] args) {
         String jdbcUrl = "jdbc:mysql://localhost:3306/ezyplatform";
         int startFromIndex = jdbcUrl.indexOf("://");
@@ -13,9 +16,6 @@ public class JdbcUriGetDatabaseName {
         System.out.println(getTableName("CREATE TABLE IF NOT EXISTS `${prefix}_admins` ("));
         System.out.println(getTableName("CREATE TABLE `${prefix}_admins` ("));
     }
-
-    private static final String PREFIX_CREATE_TABLE = "CREATE TABLE";
-    private static final String PREFIX_CREATE_TABLE_IF_NO_EXISTS = "CREATE TABLE IF NOT EXISTS";
 
     private static String getTableName(String line) {
         int prefixLength = PREFIX_CREATE_TABLE_IF_NO_EXISTS.length();

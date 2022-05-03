@@ -1,15 +1,14 @@
-
 package com.tvd12.example.concurrent.single_thread;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class NonBlockingEventLoop {
-    private volatile boolean active;
-    private final long sleepTime;
-    private Runnable onUpdateCallback;
-    private final Queue<Runnable> eventQueue;
     private static final long DEFAULT_SLEEP_TIME = 3;
+    private final long sleepTime;
+    private final Queue<Runnable> eventQueue;
+    private volatile boolean active;
+    private Runnable onUpdateCallback;
 
     public NonBlockingEventLoop() {
         this(DEFAULT_SLEEP_TIME);
@@ -46,21 +45,20 @@ public class NonBlockingEventLoop {
                     Runnable event = buffer.poll();
                     event.run();
                 }
-                if(onUpdateCallback != null) {
+                if (onUpdateCallback != null) {
                     onUpdateCallback.run();
                 }
                 long currentTime = System.currentTimeMillis();
-                if(currentTime < nextTime) {
+                if (currentTime < nextTime) {
                     long offset = nextTime - currentTime;
                     Thread.sleep(offset);
                 }
-            }
-            catch (Throwable e) {
+            } catch (Throwable e) {
                 exception = e;
                 active = false;
             }
         }
-        if(exception != null) {
+        if (exception != null) {
             throw new IllegalStateException(exception);
         }
     }

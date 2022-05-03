@@ -21,7 +21,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class MyApplicationStartup {
     public static void main(String[] args) {
         ApplicationContext appContext =
-                SpringApplication.run(MyApplicationStartup.class, args);
+            SpringApplication.run(MyApplicationStartup.class, args);
         BookService bookService = appContext.getBean(BookService.class);
         bookService.saveBook(new Book(1, "youngmonkeys.org"));
     }

@@ -1,5 +1,6 @@
 package com.tvd12.example.aes;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -9,11 +10,11 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class AESCBCExample {
-	
-	public static void main(String[] args) throws Exception {
+
+    public static void main(String[] args) throws Exception {
         String key = "helloworld";
         String clean = "Think better, Do better";
-        
+
         byte[] encrypted = encrypt(clean, key);
         System.out.println("encrypted: " + Base64.getEncoder().encodeToString(encrypted));
         String decrypted = decrypt(encrypted, key);
@@ -71,10 +72,10 @@ public class AESCBCExample {
 
         return new String(decrypted);
     }
-    
+
     private static byte[] hashKey(String key) throws Exception {
-    	MessageDigest digest = MessageDigest.getInstance("MD5");
-        digest.update(key.getBytes("UTF-8"));
+        MessageDigest digest = MessageDigest.getInstance("MD5");
+        digest.update(key.getBytes(StandardCharsets.UTF_8));
         return digest.digest();
     }
 

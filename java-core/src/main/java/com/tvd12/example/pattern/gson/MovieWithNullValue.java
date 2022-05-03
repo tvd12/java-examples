@@ -17,7 +17,7 @@ public class MovieWithNullValue {
     @Expose
     private String imdbId;
     private String director;
-     
+
     @Expose
     private List<ActorGson> actors;
 }

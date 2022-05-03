@@ -7,7 +7,7 @@ public class SocketChannelImplExample {
         System.out.println(-9 % 2);
         SocketChannel socketChannel = SocketChannel.open();
         long start = System.currentTimeMillis();
-        for(int i = 0 ; i < 1000000 ; ++i) {
+        for (int i = 0; i < 1000000; ++i) {
             socketChannel.hashCode();
         }
         long elapsed = System.currentTimeMillis() - start;

@@ -15,9 +15,9 @@ public class Movie {
     private String imdbId;
     private String director;
     private List<ActorGson> actors;
-    
+
     @Override
     public String toString() {
-      return "Movie [imdbId=" + imdbId + ", director=" + director + ",actors=" + actors + "]";
+        return "Movie [imdbId=" + imdbId + ", director=" + director + ",actors=" + actors + "]";
     }
 }

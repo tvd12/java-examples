@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DataX {
 
-	private String value;
-	
+    private String value;
+
 }

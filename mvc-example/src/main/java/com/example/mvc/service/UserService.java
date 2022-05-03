@@ -15,6 +15,7 @@ import java.util.UUID;
 
 public class UserService {
 
+    private static final long TOKEN_PERIOD_TIME_7_DAY = 7 * 24 * 60 * 60 * 1000;
     private final UserRepository userRepository = BeanManager.getInstance()
         .getBean(UserRepository.class);
     private final AccessTokenRepository accessTokenRepository =
@@ -27,8 +28,6 @@ public class UserService {
         BeanManager.getInstance()
             .getBean(ModelToEntityConverter.class);
 
-    private static final long TOKEN_PERIOD_TIME_7_DAY = 7 * 24 * 60 * 60 * 1000;
-
     public long saveUser(AddUserModel model) {
         User user = modelToEntityConverter.toEntity(model);
         userRepository.save(user);
@@ -37,8 +36,8 @@ public class UserService {
 
     public UserModel getUserByUsername(String username) {
         return userRepository.findByUsernameOptional(
-            username
-        )
+                username
+            )
             .map(entityToModelConverter::toModel)
             .orElse(null);
     }

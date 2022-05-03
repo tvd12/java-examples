@@ -14,7 +14,7 @@ public class FixRateAndFixDelay {
             long current = System.currentTimeMillis();
             if (fixRateStartTime.get() != 0) {
                 long totalWaitTime = current - fixRateStartTime.get();
-                System.out.println("fix rate - totalWaitTime: " + totalWaitTime/1000);
+                System.out.println("fix rate - totalWaitTime: " + totalWaitTime / 1000);
             }
             fixRateStartTime.set(current);
             sleep(5);
@@ -26,7 +26,7 @@ public class FixRateAndFixDelay {
             long current = System.currentTimeMillis();
             if (fixDelayTime.get() != 0) {
                 long totalWaitTime = current - fixDelayTime.get();
-                System.out.println("fix delay - totalWaitTime: " + totalWaitTime/1000);
+                System.out.println("fix delay - totalWaitTime: " + totalWaitTime / 1000);
             }
             fixDelayTime.set(current);
             sleep(5);
@@ -36,6 +36,7 @@ public class FixRateAndFixDelay {
     private static void sleep(int second) {
         try {
             Thread.sleep(second * 1000);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+        }
     }
 }

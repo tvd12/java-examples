@@ -29,13 +29,13 @@ public class BookController {
 
     @PostMapping("/book/add")
     public BookResponse addBook(@RequestBody AddBookRequest request) {
-    	BookNameAndAuthorId bookNameAndAuthorId = new BookNameAndAuthorId(
+        BookNameAndAuthorId bookNameAndAuthorId = new BookNameAndAuthorId(
             request.getBookName(),
             request.getAuthorId()
         );
         Long existedBookId = bookIdByNameAndAuthorIdRepository.findById(bookNameAndAuthorId)
             .orElse(null);
-        if(existedBookId != null) {
+        if (existedBookId != null) {
             throw new HttpBadRequestException(
                 "author: " + request.getAuthorId() +
                     " has already registered book: " + request.getBookName()
@@ -77,9 +77,9 @@ public class BookController {
                 new IllegalStateException("maybe someone has change redis")
             );
         return entityToResponseConverter.toBookResponse(
-        	book,
-        	author,
-        	category
+            book,
+            author,
+            category
         );
     }
 }

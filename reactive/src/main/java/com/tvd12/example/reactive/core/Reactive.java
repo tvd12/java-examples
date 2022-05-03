@@ -23,6 +23,10 @@ public final class Reactive {
         EXECUTOR_SERVICE.shutdown();
     }
 
+    public interface RxSupplier {
+        Object get() throws Exception;
+    }
+
     public static class Single {
         private final Map<Object, RxSupplier> suppliers = new HashMap<>();
 
@@ -44,29 +48,22 @@ public final class Reactive {
                         final Object value = entry.getValue().get();
                         result.put(name, value);
                         countDown.countDown();
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         exceptions.add(e);
                     }
                 });
             }
             try {
                 countDown.await();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 exceptions.add(e);
             }
             if (exceptions.isEmpty()) {
                 return mapper.apply(result);
-            }
-            else {
+            } else {
                 throw new RxException(exceptions);
             }
         }
-    }
-
-    public interface RxSupplier {
-        Object get() throws Exception;
     }
 
     public static class RxMap {
@@ -78,7 +75,7 @@ public final class Reactive {
 
         @SuppressWarnings("unchecked")
         public <T> T get(Object name) {
-            return (T)map.get(name);
+            return (T) map.get(name);
         }
     }
 

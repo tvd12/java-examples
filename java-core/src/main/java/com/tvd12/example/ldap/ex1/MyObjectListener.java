@@ -10,16 +10,16 @@ import javax.naming.event.ObjectChangeListener;
  */
 public class MyObjectListener implements ObjectChangeListener {
 
-	public void objectChanged(NamingEvent event) {
-		System.out.println("Object Listener detected that an object binding changed  from " 
-				+ event.getOldBinding()
-				+ " to " 
-				+ event.getNewBinding());
-		System.out.println("");
-	}
+    public void objectChanged(NamingEvent event) {
+        System.out.println("Object Listener detected that an object binding changed  from "
+            + event.getOldBinding()
+            + " to "
+            + event.getNewBinding());
+        System.out.println("");
+    }
 
-	public void namingExceptionThrown(NamingExceptionEvent event) {
-		System.out.println("Object listener got an exception");
-		event.getException().printStackTrace();
-	}
+    public void namingExceptionThrown(NamingExceptionEvent event) {
+        System.out.println("Object listener got an exception");
+        event.getException().printStackTrace();
+    }
 }

@@ -9,8 +9,8 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 public class CategoryIdByNameRepository {
-    private final RedisTemplate redisTemplate;
     private final static String MAP_NAME = "SpringBootRedis.CategoryIdByName";
+    private final RedisTemplate redisTemplate;
 
     public void put(String categoryName, Long id) {
         redisTemplate.opsForHash()
@@ -19,7 +19,7 @@ public class CategoryIdByNameRepository {
 
     public Optional<Long> findById(String categoryName) {
         return Optional.ofNullable(
-            (Long)redisTemplate.opsForHash()
+            (Long) redisTemplate.opsForHash()
                 .get(MAP_NAME, categoryName)
         );
     }

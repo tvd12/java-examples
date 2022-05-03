@@ -12,7 +12,7 @@ public class FunctionalPerformanceTest {
             .test(() -> {
                 Map<String, String> map = new HashMap<>();
                 String value = map.get("value");
-                if(value == null) {
+                if (value == null) {
                     map.put("value", "value");
                 }
             })

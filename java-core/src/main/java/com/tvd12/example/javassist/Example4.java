@@ -15,30 +15,30 @@ import javassist.bytecode.Mnemonic;
 
 public class Example4 {
 
-	public static void main(String[] args) 
-			throws DuplicateMemberException, NotFoundException, BadBytecode {
-		ClassFile cf = ClassPool.getDefault()
-				  .get("com.tvd12.example.javassist.Point").getClassFile();
-		Bytecode code = new Bytecode(cf.getConstPool());
-		code.addAload(0);
-		code.addInvokespecial("java/lang/Object", MethodInfo.nameInit, "()V");
-		code.addReturn(null);
-		 
-		MethodInfo minfo = new MethodInfo(
-		  cf.getConstPool(), MethodInfo.nameInit, "()V");
-		minfo.setCodeAttribute(code.toCodeAttribute());
-		cf.addMethod(minfo);
-		
-		CodeIterator ci = code.toCodeAttribute().iterator();
-		List<String> operations = new LinkedList<>();
-		while (ci.hasNext()) {
-		    int index = ci.next();
-		    int op = ci.byteAt(index);
-		    operations.add(Mnemonic.OPCODE[op]);
-		}
-		 
-		System.out.println(operations);
+    public static void main(String[] args)
+        throws DuplicateMemberException, NotFoundException, BadBytecode {
+        ClassFile cf = ClassPool.getDefault()
+            .get("com.tvd12.example.javassist.Point").getClassFile();
+        Bytecode code = new Bytecode(cf.getConstPool());
+        code.addAload(0);
+        code.addInvokespecial("java/lang/Object", MethodInfo.nameInit, "()V");
+        code.addReturn(null);
 
-	}
-	
+        MethodInfo minfo = new MethodInfo(
+            cf.getConstPool(), MethodInfo.nameInit, "()V");
+        minfo.setCodeAttribute(code.toCodeAttribute());
+        cf.addMethod(minfo);
+
+        CodeIterator ci = code.toCodeAttribute().iterator();
+        List<String> operations = new LinkedList<>();
+        while (ci.hasNext()) {
+            int index = ci.next();
+            int op = ci.byteAt(index);
+            operations.add(Mnemonic.OPCODE[op]);
+        }
+
+        System.out.println(operations);
+
+    }
+
 }

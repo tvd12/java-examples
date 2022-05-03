@@ -22,6 +22,6 @@ public class MultiThreadCountingTest {
         for (Thread thread : list) {
             thread.join();
         }
-        System.out.println("Count: "+count);
+        System.out.println("Count: " + count);
     }
 }

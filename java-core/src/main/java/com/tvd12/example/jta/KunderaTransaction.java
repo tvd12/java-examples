@@ -32,62 +32,52 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Implementation for <code> javax.transaction.Transaction </code>
- * 
+ *
  * @author vivek.mishra
- * 
  */
-public class KunderaTransaction implements Transaction
-{
+public class KunderaTransaction implements Transaction {
 
-    private Set<ResourceManager> implementors = new HashSet<ResourceManager>();
-
-    private boolean setRollBackOnly;
-
-    private int status = Status.STATUS_ACTIVE;
-
-    /** The time out in millis. */
-    private int timeOutInMillis;
-
-    /** The Constant log. */
+    /**
+     * The Constant log.
+     */
     private static final Logger log = LoggerFactory.getLogger(KunderaTransaction.class);
+    private Set<ResourceManager> implementors = new HashSet<ResourceManager>();
+    private boolean setRollBackOnly;
+    private int status = Status.STATUS_ACTIVE;
+    /**
+     * The time out in millis.
+     */
+    private int timeOutInMillis;
 
     /**
      * Default constructor with timeout parameter.
      */
-    KunderaTransaction(int timeOutInMillis)
-    {
+    KunderaTransaction(int timeOutInMillis) {
         this.timeOutInMillis = timeOutInMillis;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.transaction.Transaction#commit()
      */
     @Override
     public void commit() throws RollbackException, HeuristicMixedException, HeuristicRollbackException,
-            SecurityException, IllegalStateException, SystemException
-    {
-        if (!setRollBackOnly)
-        {
-            for (ResourceManager implementor : implementors)
-            {
-                if (implementor != null)
-                {
+        SecurityException, IllegalStateException, SystemException {
+        if (!setRollBackOnly) {
+            for (ResourceManager implementor : implementors) {
+                if (implementor != null) {
                     implementor.doCommit();
                 }
             }
             status = Status.STATUS_COMMITTED;
-        }
-        else
-        {
-            if (log.isDebugEnabled())
+        } else {
+            if (log.isDebugEnabled()) {
                 log.debug("Transaction is set for rollback only, processing rollback.");
+            }
 
-            for (ResourceManager implementor : implementors)
-            {
-                if (implementor != null)
-                {
+            for (ResourceManager implementor : implementors) {
+                if (implementor != null) {
                     implementor.doRollback();
                     status = Status.STATUS_ROLLEDBACK;
                 }
@@ -98,71 +88,64 @@ public class KunderaTransaction implements Transaction
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * javax.transaction.Transaction#delistResource(javax.transaction.xa.XAResource
      * , int)
      */
     @Override
     public boolean delistResource(XAResource paramXAResource, int paramInt) throws IllegalStateException,
-            SystemException
-    {
+        SystemException {
         // TODD: need to look into.
         return false;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * javax.transaction.Transaction#enlistResource(javax.transaction.xa.XAResource
      * )
      */
     @Override
     public boolean enlistResource(XAResource paramXAResource) throws RollbackException, IllegalStateException,
-            SystemException
-    {
+        SystemException {
         // TODD: need to look into.
         return false;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.transaction.Transaction#getStatus()
      */
     @Override
-    public int getStatus() throws SystemException
-    {
+    public int getStatus() throws SystemException {
         return status;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * javax.transaction.Transaction#registerSynchronization(javax.transaction
      * .Synchronization)
      */
     @Override
     public void registerSynchronization(Synchronization paramSynchronization) throws RollbackException,
-            IllegalStateException, SystemException
-    {
+        IllegalStateException, SystemException {
         throw new UnsupportedOperationException("Currently it is not supported.");
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.transaction.Transaction#rollback()
      */
     @Override
-    public void rollback() throws IllegalStateException, SystemException
-    {
-        for (ResourceManager implementor : implementors)
-        {
-            if (implementor != null)
-            {
+    public void rollback() throws IllegalStateException, SystemException {
+        for (ResourceManager implementor : implementors) {
+            if (implementor != null) {
                 implementor.doRollback();
                 status = Status.STATUS_ROLLEDBACK;
             }
@@ -171,26 +154,23 @@ public class KunderaTransaction implements Transaction
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.transaction.Transaction#setRollbackOnly()
      */
     @Override
-    public void setRollbackOnly() throws IllegalStateException, SystemException
-    {
+    public void setRollbackOnly() throws IllegalStateException, SystemException {
         setRollBackOnly = true;
         status = Status.STATUS_MARKED_ROLLBACK;
     }
 
-    void setImplementor(ResourceManager implementor)
-    {
+    void setImplementor(ResourceManager implementor) {
         implementors.add(implementor);
     }
 
     /**
      * @return the transactionTimeout
      */
-    public int getTransactionTimeout()
-    {
+    public int getTransactionTimeout() {
         return timeOutInMillis;
     }
 

@@ -4,23 +4,6 @@ public class CustomVolatileExample {
 
     private final Volatile<Boolean> active = new Volatile<>(false);
 
-    public void prepare() throws InterruptedException {
-        new Thread(() -> {
-            System.out.println("application preparing ...");
-            sleep(3);
-            active.set(true);
-        })
-            .start();
-    }
-
-    public void start() throws Exception {
-        new Thread(() -> {
-            while(!active.get());
-            System.out.println("application started");
-        })
-            .start();
-    }
-
     private static void sleep(int second) {
         try {
             Thread.sleep(second * 1000);
@@ -34,6 +17,23 @@ public class CustomVolatileExample {
         example.prepare();
         example.start();
         sleep(10);
+    }
+
+    public void prepare() throws InterruptedException {
+        new Thread(() -> {
+            System.out.println("application preparing ...");
+            sleep(3);
+            active.set(true);
+        })
+            .start();
+    }
+
+    public void start() throws Exception {
+        new Thread(() -> {
+            while (!active.get()) ;
+            System.out.println("application started");
+        })
+            .start();
     }
 }
 
@@ -53,7 +53,10 @@ class Volatile<T> {
 
     public synchronized T get() {
         while (!changed) {
-            try { wait(); } catch (Exception e) {}
+            try {
+                wait();
+            } catch (Exception e) {
+            }
         }
         changed = false;
         return value;

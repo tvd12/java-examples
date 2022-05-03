@@ -12,31 +12,31 @@ import com.google.gson.JsonSerializer;
 
 public class ActorGsonSerializer implements JsonSerializer<ActorGson> {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-      
+
     @Override
     public JsonElement serialize(ActorGson actor, Type type,
-        JsonSerializationContext jsonSerializationContext) {
-         
+                                 JsonSerializationContext jsonSerializationContext) {
+
         JsonObject actorJsonObj = new JsonObject();
-         
+
         actorJsonObj.addProperty("<strong>IMDB Code</strong>", actor.getImdbId());
-         
-        actorJsonObj.addProperty("<strong>Date Of Birth</strong>", 
-          actor.getDateOfBirth() != null ? 
-          sdf.format(actor.getDateOfBirth()) : null);
-         
-        actorJsonObj.addProperty("<strong>N° Film:</strong> ",  
-          actor.getFilmography()  != null ?  
-          actor.getFilmography().size() : null);
-        
-        actorJsonObj.addProperty("filmography", actor.getFilmography() != null ? 
-          convertFilmography(actor.getFilmography()) : null);
-         
+
+        actorJsonObj.addProperty("<strong>Date Of Birth</strong>",
+            actor.getDateOfBirth() != null ?
+                sdf.format(actor.getDateOfBirth()) : null);
+
+        actorJsonObj.addProperty("<strong>N° Film:</strong> ",
+            actor.getFilmography() != null ?
+                actor.getFilmography().size() : null);
+
+        actorJsonObj.addProperty("filmography", actor.getFilmography() != null ?
+            convertFilmography(actor.getFilmography()) : null);
+
         return actorJsonObj;
     }
-  
+
     private String convertFilmography(List<String> filmography) {
         return filmography.stream()
-          .collect(Collectors.joining("-"));
+            .collect(Collectors.joining("-"));
     }
 }

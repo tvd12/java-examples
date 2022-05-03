@@ -9,10 +9,10 @@ import javax.mail.Session;
 public class TLSEmail {
 
     /**
-     Outgoing Mail (SMTP) Server
-     requires TLS or SSL: smtp.gmail.com (use authentication)
-     Use Authentication: Yes
-     Port for TLS/STARTTLS: 587
+     * Outgoing Mail (SMTP) Server
+     * requires TLS or SSL: smtp.gmail.com (use authentication)
+     * Use Authentication: Yes
+     * Port for TLS/STARTTLS: 587
      */
     public static void main(String[] args) {
         final String fromEmail = "myemailid@gmail.com"; //requires valid gmail id
@@ -35,6 +35,6 @@ public class TLSEmail {
         };
         Session session = Session.getInstance(props, auth);
 
-        EmailUtil.sendEmail(session, toEmail,"TLSEmail Testing Subject", "TLSEmail Testing Body");
+        EmailUtil.sendEmail(session, toEmail, "TLSEmail Testing Subject", "TLSEmail Testing Body");
     }
 }

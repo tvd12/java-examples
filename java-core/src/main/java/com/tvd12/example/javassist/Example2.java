@@ -14,21 +14,21 @@ import javassist.bytecode.Mnemonic;
 
 public class Example2 {
 
-	public static void main(String[] args) throws NotFoundException, BadBytecode {
-		ClassPool cp = ClassPool.getDefault();
-		ClassFile cf = cp.get("com.tvd12.example.javassist.Point").getClassFile();
-		MethodInfo minfo = cf.getMethod("move");
-		CodeAttribute ca = minfo.getCodeAttribute();
-		CodeIterator ci = ca.iterator();
+    public static void main(String[] args) throws NotFoundException, BadBytecode {
+        ClassPool cp = ClassPool.getDefault();
+        ClassFile cf = cp.get("com.tvd12.example.javassist.Point").getClassFile();
+        MethodInfo minfo = cf.getMethod("move");
+        CodeAttribute ca = minfo.getCodeAttribute();
+        CodeIterator ci = ca.iterator();
 
-		List<String> operations = new LinkedList<>();
-		while (ci.hasNext()) {
-			int index = ci.next();
-			int op = ci.byteAt(index);
-			operations.add(Mnemonic.OPCODE[op]);
-		}
-		 
-		System.out.println(operations);
-	}
-	
+        List<String> operations = new LinkedList<>();
+        while (ci.hasNext()) {
+            int index = ci.next();
+            int op = ci.byteAt(index);
+            operations.add(Mnemonic.OPCODE[op]);
+        }
+
+        System.out.println(operations);
+    }
+
 }

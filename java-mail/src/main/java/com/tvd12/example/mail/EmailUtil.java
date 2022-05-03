@@ -10,9 +10,8 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailUtil {
 
-    public static void sendEmail(Session session, String toEmail, String subject, String body){
-        try
-        {
+    public static void sendEmail(Session session, String toEmail, String subject, String body) {
+        try {
             MimeMessage msg = new MimeMessage(session);
             //set message headers
             msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
@@ -33,8 +32,7 @@ public class EmailUtil {
             System.out.println("Message is ready");
             Transport.send(msg);
             System.out.println("EMail Sent Successfully!!");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -13,9 +13,9 @@ import java.net.URI;
 public class ChatClientWebSocket {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-	public static void main(String[] args) throws InterruptedException {
-		  
-        for(int i = 0 ; i < 100 ; ++i) {
+    public static void main(String[] args) throws InterruptedException {
+
+        for (int i = 0; i < 100; ++i) {
             WebSocketClient client = new ReactorNettyWebSocketClient();
             client.execute(
                     URI.create("ws://localhost:8080/chat"),
@@ -23,21 +23,21 @@ public class ChatClientWebSocket {
                 )
                 .subscribe();
         }
-        while(true) {
+        while (true) {
             Thread.sleep(5);
         }
     }
 
     private static Mono<Void> senMessage(WebSocketSession session) {
         return session.send(
-            Mono.just(
-                session.textMessage(
-                    serializeObject(
-                        new Event("event hello", "message world")
+                Mono.just(
+                    session.textMessage(
+                        serializeObject(
+                            new Event("event hello", "message world")
+                        )
                     )
                 )
             )
-        )
             .thenMany(
                 session.receive()
                     .map(WebSocketMessage::getPayloadAsText)
@@ -47,10 +47,9 @@ public class ChatClientWebSocket {
     }
 
     private static String serializeObject(Object value) {
-	    try {
+        try {
             return objectMapper.writeValueAsString(value);
-        }
-	    catch (Exception e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }

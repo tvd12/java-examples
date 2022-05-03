@@ -5,18 +5,18 @@ import java.util.concurrent.locks.Lock;
 
 public class LockingExecutor {
 
-	public void lock(Map<String, Lock> locks) {
-		for(String key : locks.keySet()) {
-			Lock lock = locks.get(key);
-			lock.lock();
-		}
-	}
-	
-	public void unlock(Map<String, Lock> locks) {
-		for(String key : locks.keySet()) {
-			Lock lock = locks.get(key);
-			lock.unlock();
-		}
-	}
-	
+    public void lock(Map<String, Lock> locks) {
+        for (String key : locks.keySet()) {
+            Lock lock = locks.get(key);
+            lock.lock();
+        }
+    }
+
+    public void unlock(Map<String, Lock> locks) {
+        for (String key : locks.keySet()) {
+            Lock lock = locks.get(key);
+            lock.unlock();
+        }
+    }
+
 }

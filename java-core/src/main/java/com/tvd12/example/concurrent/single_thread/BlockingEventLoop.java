@@ -4,9 +4,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class BlockingEventLoop {
-    private volatile boolean active;
-    private final BlockingQueue<Runnable> eventQueue;
     private final static Runnable FINISH_EVENT = () -> {};
+    private final BlockingQueue<Runnable> eventQueue;
+    private volatile boolean active;
 
     public BlockingEventLoop() {
         this(new LinkedBlockingQueue<>());
@@ -28,17 +28,16 @@ public class BlockingEventLoop {
         while (active) {
             try {
                 Runnable event = eventQueue.take();
-                if(event == FINISH_EVENT) {
+                if (event == FINISH_EVENT) {
                     break;
                 }
                 event.run();
-            }
-            catch (Throwable e) {
+            } catch (Throwable e) {
                 exception = e;
                 active = false;
             }
         }
-        if(exception != null) {
+        if (exception != null) {
             throw new IllegalStateException(exception);
         }
     }

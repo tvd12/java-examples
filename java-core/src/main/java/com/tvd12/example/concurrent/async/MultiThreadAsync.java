@@ -25,9 +25,9 @@ public class MultiThreadAsync {
         };
         queue.add(task1);
         queue.add(task2);
-        while(true) {
+        while (true) {
             Thread.sleep(3);
-            while(queue.size() > 0) {
+            while (queue.size() > 0) {
                 final Runnable task = queue.poll();
                 process(task);
             }
@@ -38,17 +38,18 @@ public class MultiThreadAsync {
         task.run();
     }
 
-    private static class Async {
-        private ExecutorService executorService = Executors.newFixedThreadPool(8);
-        void run(Runnable task) {
-            executorService.execute(task);
-        }
-    }
-
     private static void sleep(int millis) {
         try {
             Thread.sleep(millis);
+        } catch (InterruptedException e) {
         }
-        catch (InterruptedException e) { }
+    }
+
+    private static class Async {
+        private ExecutorService executorService = Executors.newFixedThreadPool(8);
+
+        void run(Runnable task) {
+            executorService.execute(task);
+        }
     }
 }

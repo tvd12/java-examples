@@ -10,6 +10,6 @@ import lombok.ToString;
 @ToString
 public class MyObject {
 
-	private String name = "my object";
-	
+    private String name = "my object";
+
 }

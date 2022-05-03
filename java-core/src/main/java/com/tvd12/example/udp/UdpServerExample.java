@@ -15,135 +15,135 @@ import org.slf4j.LoggerFactory;
 
 public class UdpServerExample {
 
-	public static void main(String[] args) throws Exception {
-		DatagramChannel datagramChannel = DatagramChannel.open();
-	    datagramChannel.configureBlocking(false);
-	    datagramChannel.socket().bind(new InetSocketAddress("0.0.0.0", 2612));
-	    datagramChannel.socket().setReuseAddress(true);
-		Selector udpSelector = Selector.open();
-		datagramChannel.register(udpSelector, SelectionKey.OP_READ);
-		DatagramReader reader = new DatagramReader(udpSelector);
-		reader.init();
-	}
+    public static void main(String[] args) throws Exception {
+        DatagramChannel datagramChannel = DatagramChannel.open();
+        datagramChannel.configureBlocking(false);
+        datagramChannel.socket().bind(new InetSocketAddress("0.0.0.0", 2612));
+        datagramChannel.socket().setReuseAddress(true);
+        Selector udpSelector = Selector.open();
+        datagramChannel.register(udpSelector, SelectionKey.OP_READ);
+        DatagramReader reader = new DatagramReader(udpSelector);
+        reader.init();
+    }
 
-	public static class DatagramReader implements Runnable {
-		private final Logger logger;
-		private final Thread readerThread;
-		private Selector udpSelector;
-		private volatile boolean isActive = false;
-		private volatile int readBytes = 0;
+    public static class DatagramReader implements Runnable {
+        private final Logger logger;
+        private final Thread readerThread;
+        private Selector udpSelector;
+        private volatile boolean isActive = false;
+        private volatile int readBytes = 0;
 
-		public DatagramReader(Selector udpSelector) {
-			this.udpSelector = udpSelector;
-			logger = LoggerFactory.getLogger(getClass());
-			readerThread = new Thread(this, "DatagramReader");
-		}
+        public DatagramReader(Selector udpSelector) {
+            this.udpSelector = udpSelector;
+            logger = LoggerFactory.getLogger(getClass());
+            readerThread = new Thread(this, "DatagramReader");
+        }
 
-		public void init() {
-			if (isActive) {
-				throw new IllegalArgumentException("has already destroyed!");
-			}
-			isActive = true;
-			readerThread.start();
-		}
+        public void init() {
+            if (isActive) {
+                throw new IllegalArgumentException("has already destroyed!");
+            }
+            isActive = true;
+            readerThread.start();
+        }
 
-		public void destroy(Object o) {
-			isActive = false;
-			try {
-				Thread.sleep(500L);
+        public void destroy(Object o) {
+            isActive = false;
+            try {
+                Thread.sleep(500L);
 
-				udpSelector.close();
-			} catch (Exception e) {
-				logger.warn("destroy error", e);
-			}
-		}
+                udpSelector.close();
+            } catch (Exception e) {
+                logger.warn("destroy error", e);
+            }
+        }
 
-		public void run() {
-			ByteBuffer readBuffer = ByteBuffer.allocateDirect(1024);
+        public void run() {
+            ByteBuffer readBuffer = ByteBuffer.allocateDirect(1024);
 
-			while (isActive) {
-				try {
-					readIncomingDatagrams(readBuffer);
+            while (isActive) {
+                try {
+                    readIncomingDatagrams(readBuffer);
 
-				} catch (Throwable t) {
-					logger.warn("Problems in DatagramReader main loop: " + t);
-				}
-			}
+                } catch (Throwable t) {
+                    logger.warn("Problems in DatagramReader main loop: " + t);
+                }
+            }
 
-		}
+        }
 
-		private void readIncomingDatagrams(ByteBuffer readBuffer) {
-			DatagramChannel chan = null;
-			SelectionKey key = null;
+        private void readIncomingDatagrams(ByteBuffer readBuffer) {
+            DatagramChannel chan = null;
+            SelectionKey key = null;
 
-			try {
-				udpSelector.select();
-				System.out.println("hello");
-				Iterator<SelectionKey> selectedKeys = udpSelector.selectedKeys().iterator();
-				while (selectedKeys.hasNext()) {
-					try {
-						key = (SelectionKey) selectedKeys.next();
-						selectedKeys.remove();
+            try {
+                udpSelector.select();
+                System.out.println("hello");
+                Iterator<SelectionKey> selectedKeys = udpSelector.selectedKeys().iterator();
+                while (selectedKeys.hasNext()) {
+                    try {
+                        key = (SelectionKey) selectedKeys.next();
+                        selectedKeys.remove();
 
-						if (key.isValid()) {
+                        if (key.isValid()) {
 
-							if (key.isReadable()) {
-								readBuffer.clear();
-								chan = (DatagramChannel) key.channel();
-								readPacket(chan, readBuffer);
-							}
-						}
-					} catch (IOException e) {
-						logger.warn(
+                            if (key.isReadable()) {
+                                readBuffer.clear();
+                                chan = (DatagramChannel) key.channel();
+                                readPacket(chan, readBuffer);
+                            }
+                        }
+                    } catch (IOException e) {
+                        logger.warn(
 
-						        String.format(
+                            String.format(
 
-						                "read data error",
-						                new Object[] { chan.toString(), e.toString() }));
-					}
+                                "read data error",
+                                new Object[]{chan.toString(), e.toString()}));
+                    }
 
-				}
+                }
 
-			} catch (ClosedSelectorException e) {
-				logger.debug("ClosedSelectorException");
+            } catch (ClosedSelectorException e) {
+                logger.debug("ClosedSelectorException");
 
-			} catch (CancelledKeyException localCancelledKeyException) {
-			} catch (IOException ioe) {
+            } catch (CancelledKeyException localCancelledKeyException) {
+            } catch (IOException ioe) {
 
-				logger.warn("IOException", ioe);
+                logger.warn("IOException", ioe);
 
-			} catch (Exception err) {
-				logger.warn("Exception", err);
-			}
-		}
+            } catch (Exception err) {
+                logger.warn("Exception", err);
+            }
+        }
 
-		private void readPacket(DatagramChannel chan, ByteBuffer readBuffer) throws IOException {
-			long byteCount = 0L;
-			InetSocketAddress address = (InetSocketAddress) chan.receive(readBuffer);
+        private void readPacket(DatagramChannel chan, ByteBuffer readBuffer) throws IOException {
+            long byteCount = 0L;
+            InetSocketAddress address = (InetSocketAddress) chan.receive(readBuffer);
 
-			if (address != null) {
+            if (address != null) {
 
-				byteCount = readBuffer.position();
+                byteCount = readBuffer.position();
 
-				if (byteCount > 0L) {
+                if (byteCount > 0L) {
 
-					readBytes += byteCount;
+                    readBytes += byteCount;
 
-					readBuffer.flip();
+                    readBuffer.flip();
 
-					byte[] binaryData = new byte[readBuffer.limit()];
-					readBuffer.get(binaryData);
+                    byte[] binaryData = new byte[readBuffer.limit()];
+                    readBuffer.get(binaryData);
 
-					System.out.println("received: " + new String(binaryData));
-				}
-			} else {
-				logger.info("read error", chan);
-			}
-		}
+                    System.out.println("received: " + new String(binaryData));
+                }
+            } else {
+                logger.info("read error", chan);
+            }
+        }
 
-		public long getReadBytes() {
-			return readBytes;
-		}
+        public long getReadBytes() {
+            return readBytes;
+        }
 
-	}
+    }
 }

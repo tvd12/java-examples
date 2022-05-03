@@ -5,9 +5,8 @@ import java.util.Map;
 
 public class BeanManager {
 
-    private final Map<Object, Object> beanByKey;
-
     private static final BeanManager INSTANCE = new BeanManager();
+    private final Map<Object, Object> beanByKey;
 
     private BeanManager() {
         this.beanByKey = new HashMap<>();

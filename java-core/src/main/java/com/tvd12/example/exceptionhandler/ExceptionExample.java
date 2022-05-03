@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class ExceptionExample {
     public static void validateEmail(String email) {
-        if(!Pattern.compile("^(.+)@(.+)$").matcher(email).matches()) {
+        if (!Pattern.compile("^(.+)@(.+)$").matcher(email).matches()) {
             throw new IllegalArgumentException("invalid email: " + email);
         }
     }
@@ -17,8 +17,7 @@ public class ExceptionExample {
         try {
             validateEmail("dzung@youngmonkeys.org");
             validateEmail("dzung");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("validate email failed", e);
         }
     }

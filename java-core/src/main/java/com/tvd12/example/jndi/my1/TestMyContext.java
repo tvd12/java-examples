@@ -9,51 +9,52 @@ import com.tvd12.example.jndi.MyObject;
 
 public class TestMyContext {
 
-	static MyContext testRoot;
-	static {
-		try {
-			testRoot = new MyContext(null);
+    static MyContext testRoot;
 
-			Context a = testRoot.createSubcontext("a");
-			Context b = a.createSubcontext("b");
-			b.createSubcontext("c");
+    static {
+        try {
+            testRoot = new MyContext(null);
 
-			testRoot.createSubcontext("x");
-			testRoot.createSubcontext("y");
-		} catch (NamingException e) {
-		}
-	}
+            Context a = testRoot.createSubcontext("a");
+            Context b = a.createSubcontext("b");
+            b.createSubcontext("c");
 
-	@SuppressWarnings("rawtypes")
-	public static Context getStaticNamespace(Hashtable env) {
-		return testRoot;
-	}
+            testRoot.createSubcontext("x");
+            testRoot.createSubcontext("y");
+        } catch (NamingException e) {
+        }
+    }
 
-	public static void main(String[] args) {
-		try {
-			Context ctx = new MyContext(null);
+    @SuppressWarnings("rawtypes")
+    public static Context getStaticNamespace(Hashtable env) {
+        return testRoot;
+    }
 
-			Context a = ctx.createSubcontext("a");
-			Context b = a.createSubcontext("b");
-			Context c = b.createSubcontext("c");
+    public static void main(String[] args) {
+        try {
+            Context ctx = new MyContext(null);
 
-			System.out.println(c.getNameInNamespace());
+            Context a = ctx.createSubcontext("a");
+            Context b = a.createSubcontext("b");
+            Context c = b.createSubcontext("c");
 
-			System.out.println(ctx.lookup(""));
-			System.out.println(ctx.lookup("a"));
-			System.out.println(ctx.lookup("a/b"));
-			System.out.println(a.lookup("b/c"));
-			
-			MyObject myObject1 = new MyObject();
-			ctx.bind("m", myObject1);
-			System.out.println(ctx.lookup("m"));
-			MyObject myObject2 = new MyObject();
-			myObject2.setName("haha");
-			c.bind("m1", myObject2);
-			System.out.println(ctx.lookup("a/b/c/m1"));
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
-	}
-	
+            System.out.println(c.getNameInNamespace());
+
+            System.out.println(ctx.lookup(""));
+            System.out.println(ctx.lookup("a"));
+            System.out.println(ctx.lookup("a/b"));
+            System.out.println(a.lookup("b/c"));
+
+            MyObject myObject1 = new MyObject();
+            ctx.bind("m", myObject1);
+            System.out.println(ctx.lookup("m"));
+            MyObject myObject2 = new MyObject();
+            myObject2.setName("haha");
+            c.bind("m1", myObject2);
+            System.out.println(ctx.lookup("a/b/c/m1"));
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -14,27 +14,27 @@ public class AccessToken {
         this.expiredTime = expiredTime;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public void setExpiredTime(long expiredTime) {
-        this.expiredTime = expiredTime;
-    }
-
     public String getAccessToken() {
         return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public long getUserId() {
         return userId;
     }
 
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
     public long getExpiredTime() {
         return expiredTime;
+    }
+
+    public void setExpiredTime(long expiredTime) {
+        this.expiredTime = expiredTime;
     }
 }

@@ -23,9 +23,9 @@ public class SingleThread {
         };
         queue.add(task1);
         queue.add(task2);
-        while(true) {
+        while (true) {
             Thread.sleep(3);
-            while(queue.size() > 0) {
+            while (queue.size() > 0) {
                 final Runnable task = queue.poll();
                 process(task);
             }
@@ -36,16 +36,16 @@ public class SingleThread {
         task.run();
     }
 
+    private static void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+        }
+    }
+
     private static class Async {
         void register(Runnable task) {
             queue.add(task);
         }
-    }
-
-    private static void sleep(int millis) {
-        try {
-            Thread.sleep(millis);
-        }
-        catch (InterruptedException e) { }
     }
 }

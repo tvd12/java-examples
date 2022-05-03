@@ -4,9 +4,9 @@ public class InterruptThread {
 
     public static void main(String[] args) throws Exception {
         Thread newThread = new Thread(() -> {
-           while (true) {
-               System.out.println("current thread: " + Thread.currentThread().getName());
-           }
+            while (true) {
+                System.out.println("current thread: " + Thread.currentThread().getName());
+            }
         });
         newThread.start();
         Thread.sleep(10);

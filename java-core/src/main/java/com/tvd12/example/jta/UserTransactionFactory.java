@@ -1,5 +1,4 @@
 /*******************************************************************************
-
  * * Copyright 2012 Impetus Infotech.
  *  *
  *  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,72 +32,61 @@ import javax.naming.spi.ObjectFactory;
 /**
  * The factory for JNDI lookup of <code> KunderaJTAUserTransaction</code>
  * objects.
- * 
+ *
  * @author vivek.mishra@impetus.co.in
  */
 
-public class UserTransactionFactory implements ObjectFactory
-{
+public class UserTransactionFactory implements ObjectFactory {
     /**
      * Default constructor.
      */
-    public UserTransactionFactory()
-    {
-    }
-
-    /**
-     * Returns reference to userTransaction object.
-     * 
-     * @see javax.naming.spi.ObjectFactory
-     */
-    @SuppressWarnings("rawtypes")
-	@Override
-    public Object getObjectInstance(Object obj, Name name, Context nameCtx, Hashtable environment) throws Exception
-    {
-        Reference ref = (Reference) obj;
-        Object ret = null;
-
-        if (ref.getClassName().equals("javax.transaction.UserTransaction")
-                || ref.getClassName().equals("com.impetus.kundera.persistence.jta.KunderaJTAUserTransaction"))
-        {
-            ret = KunderaJTAUserTransaction.getCurrentTx();
-        }
-
-        if (ret == null)
-        {
-            ret = new KunderaJTAUserTransaction();
-        }
-        return ret;
-
+    public UserTransactionFactory() {
     }
 
     /**
      * Method to return reference for serialized object.(i.e.
      * KunderJTAUserTransaction)
-     * 
-     * @param object
-     *            serilized object.
+     *
+     * @param object serilized object.
      * @return reference to that object.
-     * @throws NamingException
-     *             naming exception.
+     * @throws NamingException naming exception.
      */
-    public static Reference getReference(Serializable object) throws NamingException
-    {
+    public static Reference getReference(Serializable object) throws NamingException {
         ByteArrayOutputStream outStream;
-        try
-        {
+        try {
             outStream = new ByteArrayOutputStream();
             ObjectOutputStream out = new ObjectOutputStream(outStream);
             out.writeObject(object);
             out.close();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new NamingException(e.getMessage());
         }
 
         BinaryRefAddr handle = new BinaryRefAddr("com.impetus.kundera.persistence.jta", outStream.toByteArray());
         Reference ret = new Reference(object.getClass().getName(), handle, UserTransactionFactory.class.getName(), null);
         return ret;
+    }
+
+    /**
+     * Returns reference to userTransaction object.
+     *
+     * @see javax.naming.spi.ObjectFactory
+     */
+    @SuppressWarnings("rawtypes")
+    @Override
+    public Object getObjectInstance(Object obj, Name name, Context nameCtx, Hashtable environment) throws Exception {
+        Reference ref = (Reference) obj;
+        Object ret = null;
+
+        if (ref.getClassName().equals("javax.transaction.UserTransaction")
+            || ref.getClassName().equals("com.impetus.kundera.persistence.jta.KunderaJTAUserTransaction")) {
+            ret = KunderaJTAUserTransaction.getCurrentTx();
+        }
+
+        if (ret == null) {
+            ret = new KunderaJTAUserTransaction();
+        }
+        return ret;
+
     }
 }

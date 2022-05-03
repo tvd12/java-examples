@@ -4,6 +4,6 @@ import java.io.Serializable;
 
 public interface PointDeserializer2 extends Serializable {
 
-	Point deserialize(int[] array);
-	
+    Point deserialize(int[] array);
+
 }

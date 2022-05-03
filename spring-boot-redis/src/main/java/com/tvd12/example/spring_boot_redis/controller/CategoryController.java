@@ -25,7 +25,7 @@ public class CategoryController {
         Long existedCategoryId = categoryIdByNameRepository
             .findById(request.getCategoryName())
             .orElse(null);
-        if(existedCategoryId != null) {
+        if (existedCategoryId != null) {
             throw new HttpBadRequestException(
                 "category named: " + request.getCategoryName() + " existed"
             );
