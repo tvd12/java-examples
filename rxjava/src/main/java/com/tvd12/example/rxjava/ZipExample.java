@@ -1,6 +1,7 @@
 package com.tvd12.example.rxjava;
 
 import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,8 @@ public class ZipExample {
                     return a + b;
                 }
                 throw new IllegalArgumentException(errors.toString());
-            });
+            })
+            .subscribeOn(Schedulers.io());
     }
 
     private static Single<Map<String, String>> validateValue(Integer input) {
@@ -41,6 +43,7 @@ public class ZipExample {
                 errors.put("input", "negative");
             }
             return errors;
-        });
+        })
+            .subscribeOn(Schedulers.io());
     }
 }
