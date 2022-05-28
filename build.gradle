@@ -23,14 +23,14 @@ subprojects {
     }
 
     dependencies {
-        implementation 'com.tvd12:ezyfox-bean:1.2.1'
-        implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.2'
+        implementation 'com.tvd12:ezyfox-bean:' + ezyfoxVersion
+        implementation 'com.fasterxml.jackson.core:jackson-databind:' + jacksonVersion
 
-        compileOnly 'org.projectlombok:lombok:1.18.20'
-        annotationProcessor 'org.projectlombok:lombok:1.18.20'
+        compileOnly 'org.projectlombok:lombok:' + lombokVersion
+        annotationProcessor 'org.projectlombok:lombok:' + lombokVersion
 
-        testImplementation 'com.tvd12:test-util:1.1.0'
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+        testImplementation 'com.tvd12:test-util:' + testUtilVersion
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:' + jupiterVersion
         testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     }
 

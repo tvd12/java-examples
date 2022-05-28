@@ -1,6 +1,6 @@
 dependencies {
     implementation project(':common')
-    implementation 'org.springframework.boot:spring-boot-starter:2.4.4'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.4.4'
-    implementation 'org.springframework.boot:spring-boot-starter-integration:2.4.4'
+    implementation 'org.springframework.boot:spring-boot-starter:' + springBootVersion
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:' + springBootVersion
+    implementation 'org.springframework.boot:spring-boot-starter-integration:' + springBootVersion
 }

@@ -1,7 +1,7 @@
 dependencies {
     implementation(project(":common"))
-    implementation 'org.springframework.boot:spring-boot-starter:2.4.4'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.4.4'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.4.4'
-    implementation 'redis.clients:jedis:3.5.2'
+    implementation 'org.springframework.boot:spring-boot-starter:' + springBootVersion
+    implementation 'org.springframework.boot:spring-boot-starter-web:' + springBootVersion
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis:' + springBootVersion
+    implementation 'redis.clients:jedis:' + jedisVersion
 }

@@ -1,5 +1,4 @@
 dependencies {
     implementation(project(":common"))
-    implementation 'com.sun.mail:javax.mail:1.6.2'
-    testImplementation("com.tvd12:test-util:1.1.0")
+    implementation 'com.sun.mail:javax.mail:' + javaxMailVersion
 }
