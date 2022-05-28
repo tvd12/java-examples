@@ -9,4 +9,6 @@ include ':spring-core'
 include ':spring-boot'
 include ':spring-boot-redis'
 include ':spring-websocket'
+include ':spring-webflux-jpa'
 rootProject.name = 'java-examples'
+
