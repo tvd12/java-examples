@@ -18,7 +18,7 @@ public class EmailUtil {
             msg.addHeader("format", "flowed");
             msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-            msg.setFrom(new InternetAddress("no-reply@stackask.com", "NoReply-JD"));
+            msg.setFrom(new InternetAddress("no-reply@stackask.com", "Stack Ask"));
 
             msg.setReplyTo(InternetAddress.parse("no-reply@stackask.com", false));
 
