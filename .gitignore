@@ -10,6 +10,7 @@ build/
 .gradle/
 gradle/
 certificate.crt
+certificate.pem
 keystore.jks
 private_key.pem
 public_key.pem
