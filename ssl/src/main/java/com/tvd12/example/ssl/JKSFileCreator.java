@@ -17,9 +17,9 @@ public class JKSFileCreator {
 
     public static void main(String[] args) throws Exception {
         String jksFilePath = "keystore.jks";
-        String jksFilePassword = "123456";
-        String entryAlias = "test";
-        String entryPassword = "123456";
+        String jksFilePassword = "secret";
+        String entryAlias = "ezyfox-server";
+        String entryPassword = "secret";
 
         KeyStore keyStore = KeyStore.getInstance("JKS");
         keyStore.load(null, null);

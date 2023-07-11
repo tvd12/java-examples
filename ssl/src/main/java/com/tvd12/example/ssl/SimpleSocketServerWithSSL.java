@@ -2,7 +2,6 @@ package com.tvd12.example.ssl;
 
 import javax.net.ssl.*;
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.KeyStore;
 
@@ -11,7 +10,7 @@ public class SimpleSocketServerWithSSL {
     public static void main(String[] args) throws Exception {
         int port = 8443; // Cổng sử dụng cho SSL Socket
         String keystoreFile = "keystore.jks"; // Đường dẫn tới file keystore
-        String keystorePassword = "123456"; // Mật khẩu của keystore
+        String keystorePassword = "secret"; // Mật khẩu của keystore
 
         // Khởi tạo SSL Context từ file keystore
         SSLContext sslContext = createSSLContext(keystoreFile, keystorePassword);

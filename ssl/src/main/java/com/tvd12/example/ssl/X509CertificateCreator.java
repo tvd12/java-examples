@@ -67,11 +67,11 @@ public class X509CertificateCreator {
         // Generate a self-signed X.509 certificate
         Instant now = Instant.now();
         certBuilder = new JcaX509v3CertificateBuilder(
-            new X500Name("CN=Example"),
+            new X500Name("CN=youngmonkeys.org"),
             new BigInteger(64, new SecureRandom()),
             Date.from(now),
-            Date.from(now.plusSeconds(3600)),
-            new X500Name("CN=Example"),
+            Date.from(now.plusSeconds(365 * 10 * 24 * 3600)),
+            new X500Name("CN=ezyfox-server"),
             keyPair.getPublic()
         );
 
