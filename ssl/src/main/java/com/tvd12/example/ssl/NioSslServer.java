@@ -251,22 +251,6 @@ public class NioSslServer extends NioSslPeer {
         return active;
     }
 
-    private static SSLContext createSSLContext(String keystoreFile, String keystorePassword) throws Exception {
-        KeyStore keyStore = KeyStore.getInstance("JKS");
-        keyStore.load(new FileInputStream(keystoreFile), keystorePassword.toCharArray());
-
-        KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
-        keyManagerFactory.init(keyStore, keystorePassword.toCharArray());
-
-        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("SunX509");
-        trustManagerFactory.init(keyStore);
-
-        SSLContext sslContext = SSLContext.getInstance("TLS");
-        sslContext.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), null);
-
-        return sslContext;
-    }
-
     public static void main(String[] args) throws Exception {
         NioSslServer server = new NioSslServer("localhost", 8443);
         server.start();

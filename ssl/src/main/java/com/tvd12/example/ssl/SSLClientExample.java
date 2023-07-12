@@ -15,7 +15,7 @@ public class SSLClientExample {
             SSLSocketFactory socketFactory = sslContext.getSocketFactory();
 
             // Kết nối tới server qua SSL/TLS
-            Socket socket = socketFactory.createSocket("127.0.0.1", 8443);
+            Socket socket = socketFactory.createSocket("127.0.0.1", 3005);
 
             // Gửi và nhận dữ liệu qua socket
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));

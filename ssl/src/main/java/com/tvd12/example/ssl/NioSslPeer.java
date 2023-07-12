@@ -157,6 +157,7 @@ public abstract class NioSslPeer {
                         handshakeStatus = result.getHandshakeStatus();
                     } catch (SSLException sslException) {
                         log.error("A problem was encountered while processing the data that caused the SSLEngine to abort. Will try to properly close connection...");
+                        sslException.printStackTrace();
                         engine.closeOutbound();
                         handshakeStatus = engine.getHandshakeStatus();
                         break;
@@ -191,6 +192,7 @@ public abstract class NioSslPeer {
                         handshakeStatus = result.getHandshakeStatus();
                     } catch (SSLException sslException) {
                         log.error("A problem was encountered while processing the data that caused the SSLEngine to abort. Will try to properly close connection...");
+                        sslException.printStackTrace();
                         engine.closeOutbound();
                         handshakeStatus = engine.getHandshakeStatus();
                         break;
@@ -242,7 +244,7 @@ public abstract class NioSslPeer {
                     throw new IllegalStateException("Invalid SSL status: " + handshakeStatus);
             }
         }
-
+        System.out.println(getClass().getSimpleName() + ": finish connection: " + handshakeStatus);
         return true;
 
     }
@@ -379,4 +381,19 @@ public abstract class NioSslPeer {
         return trustFactory.getTrustManagers();
     }
 
+    protected static SSLContext createSSLContext(String keystoreFile, String keystorePassword) throws Exception {
+        KeyStore keyStore = KeyStore.getInstance("JKS");
+        keyStore.load(new FileInputStream(keystoreFile), keystorePassword.toCharArray());
+
+        KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
+        keyManagerFactory.init(keyStore, keystorePassword.toCharArray());
+
+        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("SunX509");
+        trustManagerFactory.init(keyStore);
+
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), null);
+
+        return sslContext;
+    }
 }
