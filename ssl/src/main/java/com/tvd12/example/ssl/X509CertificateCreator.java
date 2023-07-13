@@ -70,7 +70,7 @@ public class X509CertificateCreator {
             new X500Name("CN=youngmonkeys.org"),
             new BigInteger(64, new SecureRandom()),
             Date.from(now),
-            Date.from(now.plusSeconds(365 * 10 * 24 * 3600)),
+            Date.from(now.plusSeconds(365 * 1000 * 24 * 3600L)),
             new X500Name("CN=ezyfox-server"),
             keyPair.getPublic()
         );
